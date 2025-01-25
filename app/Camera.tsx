@@ -127,7 +127,7 @@ export default function App() {
                         }}
                         allowsFullscreen
                         showsTimecodes
-                        resizeMode="cover" // Ensures the video fills the screen
+                        contentFit="cover" // Ensures the video fills the screen
                     />
                 </TouchableOpacity>
 
