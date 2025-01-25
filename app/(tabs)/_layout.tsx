@@ -36,7 +36,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="Camera"
+        name="Empty"
         options={{
           title: '',
           tabBarIcon: ({ focused }) =>
@@ -45,6 +45,13 @@ export default function TabLayout() {
             </View>,
 
         }}
+
+        listeners={({ navigation }) => ({
+          tabPress: (e) => {
+            e.preventDefault();
+            navigation.navigate('Camera');
+          },
+        })}
       />
       <Tabs.Screen
         name="Inbox"

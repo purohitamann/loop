@@ -1,6 +1,6 @@
 import React from 'react';
 import { supabase } from '@/utils/supabase';
-import { useRouter } from 'expo-router';
+import { router, useRouter } from 'expo-router';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
 
 export const AuthContext = React.createContext({
@@ -66,6 +66,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         router.push('/(tabs)');
     }
+
+    React.useEffect(() => {
+        const { data: authData } = supabase.auth.onAuthStateChange((event, session) => {
+            if (!session) {
+                router.push('/(auth)');
+            } else {
+                setUser(session.user ?? null);
+            }
+        });
+
+        return () => {
+
+            authData.subscription.unsubscribe();
+        };
+    }, []);
+
     return <AuthContext.Provider value={{ user, signIn, signOut, signUp }}>{children}</AuthContext.Provider>
 
 }
