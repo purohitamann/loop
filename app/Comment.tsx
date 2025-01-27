@@ -1,10 +1,11 @@
-import { View, Text, TextInput, TouchableOpacity, FlatList, Image } from 'react-native';
+import { View, SafeAreaView, Text, TextInput, TouchableOpacity, FlatList, Image, KeyboardAvoidingView, TouchableWithoutFeedback } from 'react-native';
 import '../global.css';
 import { useAuth } from '@/providers/AuthProvider';
 import { useLocalSearchParams } from 'expo-router';
 import { supabase } from '@/utils/supabase';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { Platform } from 'react-native';
 type Comment = {
     id: string;
     videoId: string;
@@ -45,36 +46,40 @@ export default function HomeScreen() {
         getComments()
     }
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 }}>
-            <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Comments</Text>
+        <KeyboardAvoidingView className='flex-1 p-3' behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <SafeAreaView className='flex-1 p-20'>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Comments</Text>
 
-            <FlatList
-                className='w-full'
-                data={comments} renderItem={
-                    ({ item }) => {
-                        return (
-                            <View className='flex-row items-center w-full p-4' style={{ borderBottomWidth: 1, borderBottomColor: '#D1D5DB' }}>
-                                <View className='w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center'>
-                                    <Text style={{ color: '#fff', fontWeight: 'bold' }}>{item.User.username.slice(0, 2).toUpperCase()}</Text>
-                                </View>
-                                <Text className='ml-4'>{item.User.username}</Text>
-                                <Text className='ml-4'>{item.text}</Text>
-                            </View>
-                        );
-                    }
-                }
+                    <FlatList
+                        className='w-full'
+                        data={comments} renderItem={
+                            ({ item }) => {
+                                return (
+                                    <View className='flex-row items-center w-full p-4' style={{ borderBottomWidth: 1, borderBottomColor: '#D1D5DB' }}>
+                                        <View className='w-10 h-10 rounded-full bg-gray-500 flex items-center justify-center'>
+                                            <Text style={{ color: '#fff', fontWeight: 'bold' }}>{item.User.username.slice(0, 2).toUpperCase()}</Text>
+                                        </View>
+                                        <Text className='ml-4'>{item.User.username}</Text>
+                                        <Text className='ml-4'>{item.text}</Text>
+                                    </View>
+                                );
+                            }
+                        }
 
-            />
-            <View className='w-full gap-x-3 flex-1 flex-row items-center'>
+                    />
+                    <View className='w-full gap-x-3 flex-1 flex-row items-center'>
 
 
-                <TextInput className='flex-1 p-4 rounded-lg border-2 border-gray-300' placeholder="Add Comment" value={text} onChangeText={(i) => setText(i)}
-                    onSubmitEditing={addComment} />
-                <TouchableOpacity onPress={addComment} className='bg-black p-2 rounded-lg'>
-                    <Ionicons name="send" size={24} color="white" />
-                </TouchableOpacity>
-            </View>
-        </View>
+                        <TextInput className='flex-1 p-4 rounded-lg border-2 border-gray-300' placeholder="Add Comment" value={text} onChangeText={(i) => setText(i)}
+                            onSubmitEditing={addComment} />
+                        <TouchableOpacity onPress={addComment} className='bg-black p-2 rounded-lg'>
+                            <Ionicons name="send" size={24} color="white" />
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
 }
 
