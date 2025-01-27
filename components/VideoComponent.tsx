@@ -26,7 +26,7 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
     };
 
     const openComments = () => {
-        router.push('/Comment');
+        router.push(`/Comment?video_id=${video.id}`);
     };
     return (
         <View className='w-full h-full '>
