@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, Dimensions } from 'react-native';
 import { supabase } from '@/utils/supabase';
 import VideoComponent from '@/components/VideoComponent';
-
+import Header from '@/components/Header';
 export default function HomeScreen() {
   const [videos, setVideos] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -12,7 +12,7 @@ export default function HomeScreen() {
     const fetchVideos = async () => {
       const { data: videoData, error: videoError } = await supabase
         .from('Video')
-        .select('*, User(username)')
+        .select('*, User(username, id)')
         .order('created_at', { ascending: false });
 
       if (videoError) {
@@ -63,27 +63,32 @@ export default function HomeScreen() {
       {loading ? (
         <Text style={{ textAlign: 'center', color: 'white' }}>Loading videos...</Text>
       ) : (
-        <FlatList
-          data={videos}
-          keyExtractor={(_, index) => index.toString()} // Use index as the key
-          renderItem={({ item, index }) => (
-            <View
-              style={{
-                width: Dimensions.get('window').width,
-                height: Dimensions.get('window').height - 20,
-              }}
-            >
-              {/* Compare the current index with viewableItemIndex */}
-              <VideoComponent video={item} isViewable={index === viewableItemIndex} />
-            </View>
-          )}
-          pagingEnabled
-          snapToAlignment="start"
-          snapToInterval={Dimensions.get('window').height}
-          decelerationRate="fast"
-          onViewableItemsChanged={onViewableItemsChanged}
-          viewabilityConfig={viewabilityConfig}
-        />
+        <View>
+          <View className='absolute top-10 left-0 right-0 z-40 m-3'>
+            <Header title='Your Loop' color='white' />
+          </View>
+          <FlatList
+            data={videos}
+            keyExtractor={(_, index) => index.toString()} // Use index as the key
+            renderItem={({ item, index }) => (
+              <View
+                style={{
+                  width: Dimensions.get('window').width,
+                  height: Dimensions.get('window').height - 20,
+                }}
+              >
+                {/* Compare the current index with viewableItemIndex */}
+                <VideoComponent video={item} isViewable={index === viewableItemIndex} />
+              </View>
+            )}
+            pagingEnabled
+            snapToAlignment="start"
+            snapToInterval={Dimensions.get('window').height}
+            decelerationRate="fast"
+            onViewableItemsChanged={onViewableItemsChanged}
+            viewabilityConfig={viewabilityConfig}
+          />
+        </View>
       )}
     </View>
   );
