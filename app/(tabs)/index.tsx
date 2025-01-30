@@ -32,7 +32,7 @@ export default function HomeScreen() {
         return;
       }
 
-      // Map the resulting signed URLs back to the videos
+
       const videosWithUrls = videoData.map((video) => ({
         ...video,
         signedUrl: signedUrls.find((url) => url.path === video.uri)?.signedUrl,
