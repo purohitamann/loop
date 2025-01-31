@@ -3,12 +3,16 @@ import { View, Text, TouchableOpacity, Share } from 'react-native';
 import { VideoView, useVideoPlayer } from 'expo-video';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { supabase } from '@/utils/supabase';
+import { useAuth } from '@/providers/AuthProvider';
 export default function VideoComponent({ video, isViewable }: { video: any; isViewable: boolean }) {
     const player = useVideoPlayer(video.signedUrl, (playerInstance) => {
         // Set loop on initialization
         playerInstance.loop = true;
     });
 
+
+    const { user, likes, getLikes } = useAuth();
     const router = useRouter();
     React.useEffect(() => {
         // Dynamically play or pause based on viewability
@@ -25,6 +29,29 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
         });
     };
 
+
+    const likeVideo = async () => {
+        const { error } = await supabase.from('Like').
+            insert({
+                video_id: video.id,
+                user_id: user?.id,
+                video_user_id: video.User.id
+            })
+        if (error) {
+            console.error(error);
+        } else {
+            getLikes(user?.id);
+        }
+    };
+
+    // const unLikeVideo = async () => {
+    //     const { error } = await supabase.from('Like').delete().eq('video_id', video.id).eq('user_id', user?.id)
+    //     if (error) {
+    //         console.error(error);
+    //     } else {
+    //         getLikes(false);
+    //     }
+    // };
     const openComments = () => {
         router.push(`/Comment?video_id=${video.id}`);
     };
@@ -49,8 +76,8 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
                         <TouchableOpacity>
                             <Ionicons name="person" size={32} color="white" onPress={() => router.push(`/user?user_id=${video.User.id}`)} />
                         </TouchableOpacity>
-                        <TouchableOpacity className='mt-6'>
-                            <Ionicons name="heart" size={32} color="white" />
+                        <TouchableOpacity className='mt-6' onPress={likeVideo}>
+                            {likes.filter((like: any) => like.video_id === video.id).length > 0 ? <Ionicons name="heart" size={32} color="red" /> : <Ionicons name="heart" size={32} color="white" />}
                         </TouchableOpacity >
                         <TouchableOpacity className='mt-6' onPress={openComments}>
                             <Ionicons name="chatbubble" size={32} color="white" />
