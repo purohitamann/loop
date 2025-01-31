@@ -65,7 +65,7 @@ export default function HomeScreen() {
       ) : (
         <View>
           <View className='absolute top-10 left-0 right-0 z-40 m-3'>
-            <Header title='Your Loop' color='white' />
+            <Header title='Your Loop' color='white' searchIcon={true} />
           </View>
           <FlatList
             data={videos}

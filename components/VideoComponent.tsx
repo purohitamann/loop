@@ -79,11 +79,16 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
                         <TouchableOpacity>
                             <Ionicons name="person" size={32} color="white" onPress={() => router.push(`/user?user_id=${video.User.id}`)} />
                         </TouchableOpacity>
-                        {likes.filter((like: any) => like.video_id === video.id).length > 0 ? <TouchableOpacity className='mt-6' onPress={unlikeVideo}>
-                            <Ionicons name="heart" size={32} color="red" />
-                        </TouchableOpacity> : <TouchableOpacity className='mt-6' onPress={likeVideo}>
-                            {likes.filter((like: any) => like.video_id === video.id).length > 0 ? <Ionicons name="heart" size={32} color="red" /> : <Ionicons name="heart" size={32} color="white" />}
-                        </TouchableOpacity >}
+                        {likes?.filter((like: any) => like.video_id === video.id).length > 0 ? (
+                            <TouchableOpacity className='mt-6' onPress={unlikeVideo}>
+                                <Ionicons name="heart" size={32} color="red" />
+                            </TouchableOpacity>
+                        ) : (
+                            <TouchableOpacity className='mt-6' onPress={likeVideo}>
+                                <Ionicons name="heart" size={32} color="white" />
+                            </TouchableOpacity>
+                        )}
+
 
                         <TouchableOpacity className='mt-6' onPress={openComments}>
                             <Ionicons name="chatbubble" size={32} color="white" />
