@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     }
     const getFollowers = async (id: string) => {
-        const { data, error } = await supabase.from('Follower').select('*').eq('follower_id', id);
+        const { data, error } = await supabase.from('Follower').select('*, User(*)').eq('follower_user_id', id);
         if (error) {
             return console.log(error)
         }

@@ -9,10 +9,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { supabase } from '@/utils/supabase';
 import { ScrollView } from 'react-native';
 import UserBanner from '@/components/UserBanner';
+import { useRouter } from 'expo-router';
 export default function HomeScreen() {
     const { user } = useAuth();
     const [text, setText] = React.useState('');
     const [searchResults, setSearchResults] = React.useState([]);
+    const router = useRouter();
     const SearchBar = async (text: string) => {
         const { data, error } = await supabase.from('User').select('*').eq('username', text);
         if (error) {
@@ -40,7 +42,9 @@ export default function HomeScreen() {
 
             <ScrollView>
                 {searchResults && searchResults.map((user: any) => (
-                    <UserBanner key={user.id} user={user} />
+                    <TouchableOpacity onPress={() => router.push(`/user?user_id=${user.id}`)}>
+                        <UserBanner key={user.id} user={user} />
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
         </SafeAreaView>
