@@ -11,8 +11,7 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
         playerInstance.loop = true;
     });
 
-
-    const { user, likes, getLikes } = useAuth();
+    const { user, likes, getLikes, followings } = useAuth();
     const router = useRouter();
     React.useEffect(() => {
         // Dynamically play or pause based on viewability
@@ -63,8 +62,13 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
         const { data, error } = await supabase.from('Follower')
             .insert({
                 user_id: user?.id,
-                follower_id: video.User.id
+                follower_user_id: video.User.id
             })
+        if (error) {
+            console.error(error);
+        } else {
+            console.log(getFollowings(user?.id));
+        }
     };
 
     const unfollowerUser = async () => {
@@ -91,9 +95,16 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
                         <Text className='text-white text-2xl'>{video.User.username}</Text>
                     </View>
                     <View className='' >
-                        <TouchableOpacity>
-                            <Ionicons name="person" size={32} color="white" onPress={() => router.push(`/user?user_id=${video.User.id}`)} />
-                        </TouchableOpacity>
+                        <View className=' items-center justify-between'>
+                            <TouchableOpacity  >
+                                <Ionicons name="person" size={32} color="white" onPress={() => router.push(`/user?user_id=${video.User.id}`)} />
+                            </TouchableOpacity>
+                            <TouchableOpacity className=' absolute -bottom-1 left-4 bg-white mt-1 rounded-full justify-center items-center' >
+                                <Ionicons name="add" size={18} color="black" onPress={followerUser} />
+                            </TouchableOpacity>
+                            <Text className='absolute -bottom-5 left-3 text-white font-bold '>{followings?.filter((following: any) => following.follower_user_id === video.User.id).length}</Text>
+                        </View>
+
                         {likes?.filter((like: any) => like.video_id === video.id).length > 0 ? (
                             <TouchableOpacity className='mt-6' onPress={unlikeVideo}>
                                 <Ionicons name="heart" size={32} color="red" />

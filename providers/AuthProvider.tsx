@@ -9,7 +9,11 @@ export const AuthContext = React.createContext({
     signOut: async () => { },
     signUp: async (username: String, email: string, password: string) => { },
     likes: [],
-    getLikes: async (id: string) => { }
+    getLikes: async (id: string) => { },
+    followings: [],
+    getFollowings: async (id: string) => { },
+    followers: [],
+    getFollowers: async (id: string) => { },
 })
 
 
@@ -17,6 +21,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = React.useState(null);
     const router = useRouter();
     const [likes, setLikes] = React.useState([]);
+    const [followings, setFollowings] = React.useState([]);
+    const [followers, setFollowers] = React.useState([]);
 
     const getUser = async (id: string) => {
         const { data, error } = await supabase.from('User').select('*').eq('id', id).single();
@@ -48,7 +54,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
 
     }
-
+    const getFollowers = async (id: string) => {
+        const { data, error } = await supabase.from('Follower').select('*').eq('follower_id', id);
+        if (error) {
+            return console.log(error)
+        }
+        setFollowers(data);
+        console.log(data)
+    }
+    const getFollowings = async (id: string) => {
+        const { data, error } = await supabase.from('Follower').select('*').eq('user_id', id);
+        if (error) {
+            return console.log(error)
+        }
+        setFollowings(data);
+        console.log(data)
+    }
     const signOut = async () => {
         const { error } = await supabase.auth.signOut()
         if (error) {
@@ -93,7 +114,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         };
     }, []);
 
-    return <AuthContext.Provider value={{ user, signIn, signOut, signUp, likes, getLikes }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{
+        user, signIn, signOut, signUp, likes, getLikes,
+        followings, getFollowings, followers, getFollowers
+    }}>{children}</AuthContext.Provider>
 
 }
 export const useAuth = () => React.useContext(AuthContext) 
