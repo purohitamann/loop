@@ -58,6 +58,21 @@ export default function VideoComponent({ video, isViewable }: { video: any; isVi
     const openComments = () => {
         router.push(`/Comment?video_id=${video.id}`);
     };
+
+    const followerUser = async () => {
+        const { data, error } = await supabase.from('Follower')
+            .insert({
+                user_id: user?.id,
+                follower_id: video.User.id
+            })
+    };
+
+    const unfollowerUser = async () => {
+        const { data, error } = await supabase.from('Follower')
+            .delete()
+            .eq('user_id', user?.id)
+            .eq('follower_id', video.User.id)
+    };
     return (
         <View className='w-full h-full '>
 
