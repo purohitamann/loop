@@ -41,6 +41,8 @@ export default function RootLayout() {
         <Stack.Screen name="Comment" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="Camera" options={{ headerShown: false, presentation: 'modal' }} />
         <Stack.Screen name="Search" options={{ headerShown: false }} />
+        <Stack.Screen name="Followers" options={{ headerShown: false }} />
+        <Stack.Screen name="Activity" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </AuthProvider>
