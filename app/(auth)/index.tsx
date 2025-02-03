@@ -29,8 +29,8 @@ export default function HomeScreen() {
             {/* <Link href="/(tabs)">Register</Link> */}
             <View className='flex flex-col w-full p-4 '>
                 <Text className='text-5xl font-bold text-center mb-4'>Login</Text>
-                <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4' placeholder='email' value={email} onChangeText={setEmail} />
-                <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4' placeholder='password' value={password} onChangeText={setPassword} />
+                <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4 lowercase' placeholder='email' value={email} onChangeText={setEmail} />
+                <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4' placeholder='password' value={password} onChangeText={setPassword} secureTextEntry />
 
                 <TouchableOpacity className='p-4 text-center rounded-lg font-bold bg-black w-full ' onPress={handleLogin}>
                     <Text className='text-2xl text-white text-center font-bold'>Login</Text>

@@ -48,7 +48,7 @@ export default function SignupScreen() {
                 <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4 placeholder:text-gray-400' placeholder='username' value={username} onChangeText={setUsername} />
 
                 <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4 placeholder:text-gray-400' placeholder='email' value={email} onChangeText={setEmail} />
-                <TextInput className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4 placeholder:text-gray-400' placeholder='password' value={password} onChangeText={setPassword} />
+                <TextInput secureTextEntry className='p-5 rounded-lg border-2 w-full border-gray-300 mb-4 placeholder:text-gray-400' placeholder='password' value={password} onChangeText={setPassword} />
 
                 <TouchableOpacity className='p-5 text-center rounded-lg font-bold bg-black w-full ' onPress={handleSignup}>
                     <Text className='text-2xl text-white text-center font-bold'>Signup</Text>

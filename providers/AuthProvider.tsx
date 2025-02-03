@@ -14,6 +14,8 @@ export const AuthContext = React.createContext({
     getFollowings: async (id: string) => { },
     followers: [],
     getFollowers: async (id: string) => { },
+    friends: [],
+    getFriends: async () => { }
 })
 
 
@@ -23,7 +25,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [likes, setLikes] = React.useState([]);
     const [followings, setFollowings] = React.useState([]);
     const [followers, setFollowers] = React.useState([]);
+    const [friends, setFriends] = React.useState<string[]>([]);
 
+    const getFriends = async () => {
+        const followingIds = followings.map((f) => f.follower_user_id);
+        const followersIds = followers.map((f) => f.user_id);
+        const duplicates = followingIds.filter((id) => followersIds.includes(id));
+        setFriends(duplicates);
+        console.log("Duplicates", duplicates)
+
+    }
+    React.useEffect(() => {
+
+
+        getFriends();
+
+    }, [followings, followers]);
     const getUser = async (id: string) => {
         const { data, error } = await supabase.from('User').select('*').eq('id', id).single();
         if (error) {
@@ -116,7 +133,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return <AuthContext.Provider value={{
         user, signIn, signOut, signUp, likes, getLikes,
-        followings, getFollowings, followers, getFollowers
+        followings, getFollowings, followers, getFollowers, friends, getFriends
     }}>{children}</AuthContext.Provider>
 
 }

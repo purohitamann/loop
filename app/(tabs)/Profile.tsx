@@ -21,10 +21,6 @@ export default function HomeScreen() {
             .eq('id', pathname.user_id)
             .single();
 
-        if (error) {
-            console.error("Error fetching user:", error.message);
-            return;
-        }
 
         console.log("User Data:", data);
         setUserA(data);
