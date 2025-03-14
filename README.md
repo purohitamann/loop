@@ -1,50 +1,33 @@
-# Welcome to your Expo app 👋
+# 🎥 Loop - A TikTok Clone Built with React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Loop is a **TikTok-inspired short video-sharing app** built with **React Native, NativeWind, Supabase, and Expo**. It allows users to upload, browse, like, and comment on short-form videos seamlessly.
 
-## Get started
+<img width="1512" alt="Screenshot 2025-03-14 at 2 30 46 PM" src="https://github.com/user-attachments/assets/f2e6be0a-908b-4826-a146-3a1c6432cc31" />
 
-1. Install dependencies
 
-   ```bash
-   npm install
-   ```
+🔗 **Live Demo**: [Loop App](https://your-demo-link.com](https://youtu.be/LH7us3Kdd-8?si=BJFudDXWmkY64oaz))
 
-2. Start the app
+---
 
-   ```bash
-    npx expo start
-   ```
+## 🚀 Features
+✅ **Short Video Uploads** - Share engaging videos with the world  
+✅ **Smooth Vertical Swiping** - Scroll through videos effortlessly  
+✅ **Like & Comment** - Engage with content creators  
+✅ **User Authentication** - Secure login with Supabase  
+✅ **Dark Mode Support** - Adaptive UI for better user experience  
+✅ **Optimized Performance** - Leveraging React Native & Expo for a smooth UI  
 
-In the output, you'll find options to open the app in a
+---
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🛠️ Tech Stack
+- **React Native** - Mobile app framework
+- **NativeWind** - Utility-first styling (Tailwind for React Native)
+- **Supabase** - Backend for authentication and video storage
+- **Expo** - Development and deployment framework
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-## Get a fresh project
+---
 
-When you're ready, run:
+## 📸 Screenshots
 
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<img width="353" height="600" alt="Screenshot 2025-03-14 at 2 30 17 PM" src="https://github.com/user-attachments/assets/8878de62-ecba-410b-b39c-0fb4741442eb" /> <img width="353" height="600" alt="Screenshot 2025-03-14 at 3 06 02 PM" src="https://github.com/user-attachments/assets/b800c92c-310c-4c4f-be37-eea0eb539874" />
